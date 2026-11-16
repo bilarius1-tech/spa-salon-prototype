@@ -96,12 +96,36 @@
   };
 
   const MASTERS = {
-    "Анна": { outcall: true },
-    "Мария": { outcall: true },
-    "Елена": { outcall: true },
-    "Ольга": { outcall: true },
-    "Ирина": { outcall: true },
-    "Дарья": { outcall: true }
+    "Анна": {
+      outcall: true,
+      bio: "Работает с мышечным тонусом и восстановлением после долгого сидячего дня. На сеансе сначала уточняет запрос и самочувствие, затем собирает классические и миофасциальные техники без лишней жёсткости.",
+      recommended: ["oils", "head", "tea"]
+    },
+    "Мария": {
+      outcall: true,
+      bio: "Помогает с ощущением тяжести и отёчности. Ведёт курс аккуратно: сила и темп нарастают от сеанса к сеансу, с вниманием к реакции тела.",
+      recommended: ["scrub", "oils", "extra-hour"]
+    },
+    "Елена": {
+      outcall: true,
+      bio: "Составляет спокойные ритуалы с тёплыми камнями, арома-уходом и обёртываниями. Подходит тем, кто хочет не точечную проработку, а полный, неспешный сеанс.",
+      recommended: ["oils", "scrub", "tea"]
+    },
+    "Ольга": {
+      outcall: true,
+      bio: "Специализируется на лице, шее и воротниковой зоне. Снимает зажимы, которые часто появляются после долгой работы за столом и экраном.",
+      recommended: ["face", "head", "oils"]
+    },
+    "Ирина": {
+      outcall: true,
+      bio: "Работает со спиной и мышцами после нагрузки. Сочетает спортивные и глубокие тканевые техники и заранее обсуждает комфортный уровень давления.",
+      recommended: ["extra-hour", "head", "oils"]
+    },
+    "Дарья": {
+      outcall: true,
+      bio: "Ведёт парные и ритуальные программы: два гостя в одной комнате, массаж в четыре руки и спокойное завершение сеанса. Помогает собрать визит, если вы приходите вместе.",
+      recommended: ["second-guest", "oils", "tea"]
+    }
   };
 
   const addonById = Object.fromEntries(PRICE.addons.map(function (item) {
@@ -130,6 +154,12 @@
   const masterSelects = document.querySelectorAll("#field-master, #modal-master");
   const builderBar = document.getElementById("builder-bar");
   const bookingSection = document.getElementById("zapis");
+  const masterModal = document.getElementById("master-modal");
+  const masterModalBody = document.getElementById("master-modal-body");
+  const masterModalTitle = document.getElementById("master-modal-title");
+  let detailsLastFocus = null;
+  let skipDetailsFocusRestore = false;
+  let bookingLastFocus = null;
 
   function money(value) {
     return value.toLocaleString("ru-RU") + "\u00a0₽";
@@ -445,10 +475,124 @@
     updateMasterNotes();
   }
 
-  function openBooking(master) {
+  function getFocusable(root) {
+    if (!root) return [];
+    return Array.prototype.filter.call(
+      root.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      function (el) {
+        if (el.closest("[hidden]")) return false;
+        const style = window.getComputedStyle(el);
+        return style.display !== "none" && style.visibility !== "hidden";
+      }
+    );
+  }
+
+  function trapFocus(event, root) {
+    if (event.key !== "Tab" || !root || !root.open) return;
+    const nodes = getFocusable(root);
+    if (!nodes.length) return;
+    const first = nodes[0];
+    const last = nodes[nodes.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function readMasterCard(name) {
+    const card = document.querySelector('.master[data-master="' + name + '"]');
+    if (!card) return null;
+    const img = card.querySelector(".master__photo img");
+    const facts = [];
+    card.querySelectorAll("dl div").forEach(function (row) {
+      const dt = row.querySelector("dt")?.textContent.trim();
+      const dd = row.querySelector("dd")?.textContent.trim();
+      if (dt && dd) facts.push({ dt: dt, dd: dd });
+    });
+    const extra = MASTERS[name] || {};
+    return {
+      name: name,
+      exp: card.querySelector(".master__exp")?.textContent.trim() || "",
+      spec: card.querySelector(".master__spec")?.textContent.trim() || "",
+      photoSrc: img ? img.getAttribute("src") : "",
+      photoAlt: img ? img.getAttribute("alt") : "",
+      facts: facts,
+      rating: card.querySelector(".master__rating")?.innerHTML || "",
+      hours: card.querySelector(".master__hours")?.textContent.trim() || "",
+      outcall: extra.outcall || card.getAttribute("data-outcall") === "true",
+      bio: extra.bio || "",
+      recommended: extra.recommended || []
+    };
+  }
+
+  function renderMasterModal(name) {
+    const data = readMasterCard(name);
+    if (!data || !masterModalBody) return false;
+    if (masterModalTitle) masterModalTitle.textContent = data.name;
+    const badge = data.outcall ? '<p class="master__badges"><span class="badge">Выезд на дом</span></p>' : "";
+    const facts = data.facts.map(function (item) {
+      return "<div><dt>" + escapeHtml(item.dt) + "</dt><dd>" + escapeHtml(item.dd) + "</dd></div>";
+    }).join("");
+    const addons = data.recommended.map(function (id) {
+      const addon = addonById[id];
+      if (!addon) return "";
+      const on = getQuantity(id) > 0;
+      return (
+        "<li>" +
+          "<span>" + escapeHtml(addon.name) + "</span>" +
+          "<span>+" + money(addon.price) + "</span>" +
+          '<button type="button" class="addon__switch" data-recommend="' + escapeHtml(id) + '" aria-pressed="' + (on ? "true" : "false") + '">' +
+          (on ? "Добавлено" : "Добавить к визиту") +
+          "</button>" +
+        "</li>"
+      );
+    }).join("");
+    masterModalBody.innerHTML =
+      '<div class="master-modal__layout">' +
+        (data.photoSrc
+          ? '<figure class="master-modal__photo"><img src="' + escapeHtml(data.photoSrc) + '" alt="' + escapeHtml(data.photoAlt) + '"></figure>'
+          : "") +
+        "<div>" +
+          '<div class="master-modal__head">' +
+            (data.exp ? '<span class="master__exp">' + escapeHtml(data.exp) + "</span>" : "") +
+          "</div>" +
+          badge +
+          (data.spec ? '<p class="master__spec">' + escapeHtml(data.spec) + "</p>" : "") +
+          (data.bio ? '<p class="master-modal__bio">' + escapeHtml(data.bio) + "</p>" : "") +
+          (facts ? '<dl class="master-modal__facts">' + facts + "</dl>" : "") +
+          '<div class="master-modal__meta">' +
+            (data.rating ? '<p class="master__rating">' + data.rating + "</p>" : "") +
+            (data.hours ? '<p class="master__hours">' + escapeHtml(data.hours) + "</p>" : "") +
+          "</div>" +
+          (addons
+            ? '<section class="master-modal__addons" aria-label="Рекомендуемые допы">' +
+                " <h3>К сеансу можно добавить</h3>" +
+                "<p>Цены примерные, как в конструкторе визита.</p>" +
+                "<ul>" + addons + "</ul>" +
+              "</section>"
+            : "") +
+          '<div class="master-modal__cta">' +
+            '<button class="btn btn--primary btn--block" type="button" data-open-booking data-master="' + escapeHtml(data.name) + '">Записаться</button>' +
+          "</div>" +
+        "</div>" +
+      "</div>";
+    return true;
+  }
+
+  function unlockIfIdle() {
+    if (!(modal && modal.open) && !(masterModal && masterModal.open)) {
+      body.classList.remove("is-locked");
+    }
+  }
+
+  function openBooking(master, trigger) {
     setNav(false);
     renderSummary();
     if (master) setMaster(master);
+    bookingLastFocus = trigger || document.activeElement;
     if (typeof modal.showModal === "function") {
       modalForm.classList.remove("is-hidden");
       modalSuccess.classList.remove("is-visible");
@@ -462,19 +606,49 @@
   }
 
   function closeBooking() {
-    if (modal.open) modal.close();
-    body.classList.remove("is-locked");
+    if (modal && modal.open) modal.close();
+    unlockIfIdle();
   }
 
-  document.querySelectorAll("[data-open-booking]").forEach(function (el) {
-    el.addEventListener("click", function (event) {
-      const master = el.getAttribute("data-master");
-      if (master || el.tagName === "BUTTON") {
-        event.preventDefault();
-        openBooking(master);
-      } else if (el.closest(".header, .nav")) {
-        return;
+  function openMasterDetails(name, trigger) {
+    setNav(false);
+    if (!renderMasterModal(name) || !masterModal || typeof masterModal.showModal !== "function") return;
+    detailsLastFocus = trigger || document.activeElement;
+    skipDetailsFocusRestore = false;
+    masterModal.showModal();
+    body.classList.add("is-locked");
+    masterModal.querySelector("[data-close-master]")?.focus();
+  }
+
+  function closeMasterDetails() {
+    if (masterModal && masterModal.open) masterModal.close();
+    unlockIfIdle();
+  }
+
+  function bookFromDetails(name, trigger) {
+    skipDetailsFocusRestore = true;
+    bookingLastFocus = detailsLastFocus || trigger;
+    closeMasterDetails();
+    openBooking(name, bookingLastFocus);
+  }
+
+  document.addEventListener("click", function (event) {
+    const el = event.target.closest("[data-open-booking]");
+    if (!el) return;
+    const master = el.getAttribute("data-master");
+    if (master || el.tagName === "BUTTON") {
+      event.preventDefault();
+      if (el.closest("#master-modal")) {
+        bookFromDetails(master, el);
+      } else {
+        openBooking(master, el);
       }
+    }
+  });
+
+  document.querySelectorAll("[data-open-master]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      openMasterDetails(el.getAttribute("data-open-master"), el);
     });
   });
 
@@ -482,12 +656,56 @@
     el.addEventListener("click", closeBooking);
   });
 
+  document.querySelectorAll("[data-close-master]").forEach(function (el) {
+    el.addEventListener("click", closeMasterDetails);
+  });
+
+  modal?.addEventListener("click", function (event) {
+    if (event.target === modal) closeBooking();
+  });
+
+  masterModal?.addEventListener("click", function (event) {
+    if (event.target === masterModal) closeMasterDetails();
+  });
+
+  masterModal?.addEventListener("click", function (event) {
+    const recommend = event.target.closest("[data-recommend]");
+    if (!recommend) return;
+    const id = recommend.getAttribute("data-recommend");
+    const already = getQuantity(id) > 0;
+    setQuantity(id, already ? 0 : 1);
+    render();
+    const current = masterModalTitle?.textContent;
+    if (current) renderMasterModal(current);
+    const next = masterModal.querySelector('[data-recommend="' + id + '"]');
+    next?.focus();
+  });
+
+  function restoreFocus(el) {
+    if (!el || typeof el.focus !== "function") return;
+    requestAnimationFrame(function () {
+      if ((modal && modal.open) || (masterModal && masterModal.open)) return;
+      el.focus();
+    });
+  }
+
   modal?.addEventListener("close", function () {
-    body.classList.remove("is-locked");
+    unlockIfIdle();
+    restoreFocus(bookingLastFocus);
+  });
+
+  masterModal?.addEventListener("close", function () {
+    unlockIfIdle();
+    const returnTo = detailsLastFocus;
+    const skip = skipDetailsFocusRestore;
+    skipDetailsFocusRestore = false;
+    if (!skip) restoreFocus(returnTo);
   });
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") setNav(false);
+    if (masterModal && masterModal.open) trapFocus(event, masterModal);
+    else if (modal && modal.open) trapFocus(event, modal);
   });
 
   function handleSubmit(form, success) {

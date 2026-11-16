@@ -110,7 +110,10 @@
               <!-- Placeholder rating for the prototype -->
               <p class="master__rating"><strong>4,9</strong> · 42 отзыва</p>
               <p class="master__hours">График: вт–сб, с 11:00</p>
-              <button class="btn btn--primary btn--block" type="button" data-open-booking data-master="Анна">Записаться</button>
+              <div class="master__actions">
+                <button class="btn btn--ghost" type="button" data-open-master="Анна" aria-haspopup="dialog" aria-controls="master-modal">Подробнее</button>
+                <button class="btn btn--primary" type="button" data-open-booking data-master="Анна">Записаться</button>
+              </div>
             </div>
           </article>
 
@@ -141,7 +144,10 @@
               </dl>
               <p class="master__rating"><strong>4,8</strong> · 31 отзыв</p>
               <p class="master__hours">График: пн–пт, с 12:00</p>
-              <button class="btn btn--primary btn--block" type="button" data-open-booking data-master="Мария">Записаться</button>
+              <div class="master__actions">
+                <button class="btn btn--ghost" type="button" data-open-master="Мария" aria-haspopup="dialog" aria-controls="master-modal">Подробнее</button>
+                <button class="btn btn--primary" type="button" data-open-booking data-master="Мария">Записаться</button>
+              </div>
             </div>
           </article>
 
@@ -172,7 +178,10 @@
               </dl>
               <p class="master__rating"><strong>5,0</strong> · 56 отзывов</p>
               <p class="master__hours">График: ср–вс, с 10:00</p>
-              <button class="btn btn--primary btn--block" type="button" data-open-booking data-master="Елена">Записаться</button>
+              <div class="master__actions">
+                <button class="btn btn--ghost" type="button" data-open-master="Елена" aria-haspopup="dialog" aria-controls="master-modal">Подробнее</button>
+                <button class="btn btn--primary" type="button" data-open-booking data-master="Елена">Записаться</button>
+              </div>
             </div>
           </article>
 
@@ -203,7 +212,10 @@
               </dl>
               <p class="master__rating"><strong>4,9</strong> · 27 отзывов</p>
               <p class="master__hours">График: пн–сб, с 11:00</p>
-              <button class="btn btn--primary btn--block" type="button" data-open-booking data-master="Ольга">Записаться</button>
+              <div class="master__actions">
+                <button class="btn btn--ghost" type="button" data-open-master="Ольга" aria-haspopup="dialog" aria-controls="master-modal">Подробнее</button>
+                <button class="btn btn--primary" type="button" data-open-booking data-master="Ольга">Записаться</button>
+              </div>
             </div>
           </article>
 
@@ -234,7 +246,10 @@
               </dl>
               <p class="master__rating"><strong>4,8</strong> · 24 отзыва</p>
               <p class="master__hours">График: пн–чт, с 13:00</p>
-              <button class="btn btn--primary btn--block" type="button" data-open-booking data-master="Ирина">Записаться</button>
+              <div class="master__actions">
+                <button class="btn btn--ghost" type="button" data-open-master="Ирина" aria-haspopup="dialog" aria-controls="master-modal">Подробнее</button>
+                <button class="btn btn--primary" type="button" data-open-booking data-master="Ирина">Записаться</button>
+              </div>
             </div>
           </article>
 
@@ -265,7 +280,10 @@
               </dl>
               <p class="master__rating"><strong>4,9</strong> · 39 отзывов</p>
               <p class="master__hours">График: пт–вт, с 10:00</p>
-              <button class="btn btn--primary btn--block" type="button" data-open-booking data-master="Дарья">Записаться</button>
+              <div class="master__actions">
+                <button class="btn btn--ghost" type="button" data-open-master="Дарья" aria-haspopup="dialog" aria-controls="master-modal">Подробнее</button>
+                <button class="btn btn--primary" type="button" data-open-booking data-master="Дарья">Записаться</button>
+              </div>
             </div>
           </article>
         </div>
@@ -487,6 +505,17 @@
       <p class="footer__meta">Прототип одностраничного сайта. Название, адрес, телефон, цены и отзывы — примеры. Источники фотографий — в файле <a href="ATTRIBUTION.md">ATTRIBUTION.md</a>.</p>
     </div>
   </footer>
+
+
+  <dialog class="modal modal--master" id="master-modal" aria-labelledby="master-modal-title">
+    <div class="modal__panel">
+      <div class="modal__bar">
+        <h2 id="master-modal-title">Мастер</h2>
+        <button class="modal__close" type="button" aria-label="Закрыть" data-close-master>&times;</button>
+      </div>
+      <div class="master-modal__body" id="master-modal-body"></div>
+    </div>
+  </dialog>
 
   <dialog class="modal" id="booking-modal" aria-labelledby="booking-modal-title">
     <div class="modal__bar">
