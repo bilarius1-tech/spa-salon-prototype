@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Название салона — спа-салон в Москве</title>
-  <meta name="description" content="Спа-салон в Москве: классический и расслабляющий массаж, стоун-терапия и SPA-программы. Запись к мастеру онлайн. Прототип сайта.">
+  <meta name="description" content="Спа-салон в Москве: час массажа и дополнительные услуги. Запись в салон или с выездом мастера на дом и в отель. Прототип сайта.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,23 +38,39 @@
 
   <main id="main">
     <section class="hero" id="top">
+      <div class="hero__ambience" aria-hidden="true">
+        <span class="hero__blob hero__blob--1"></span>
+        <span class="hero__blob hero__blob--2"></span>
+        <span class="hero__blob hero__blob--3"></span>
+      </div>
       <div class="container hero__grid">
-        <div>
-          <p class="eyebrow">Спа-салон в Москве</p>
-          <h1>Тишина внутри города</h1>
-          <p class="hero__lead">Классический и расслабляющий массаж, стоун-терапия и SPA-программы. Короткий визит — и день становится легче.</p>
-          <div class="hero__actions">
+        <div class="hero__copy">
+          <p class="eyebrow hero__reveal" style="--d: 0">Спа-салон в Москве</p>
+          <h1 class="hero__reveal" style="--d: 1">Тишина внутри города</h1>
+          <p class="hero__lead hero__reveal" style="--d: 2">Час массажа — основа визита. Остальное добавляется по желанию: ещё час, второй гость, уход за лицом и телом. В салоне или с выездом по Москве.</p>
+          <ul class="hero__points hero__reveal" style="--d: 3">
+            <li>Час массажа — от 5&nbsp;500&nbsp;₽</li>
+            <li>В салоне или с выездом по Москве</li>
+            <li>Ежедневно, по предварительной записи</li>
+          </ul>
+          <div class="hero__actions hero__reveal" style="--d: 4">
             <a class="btn btn--primary" href="#zapis" data-open-booking>Записаться</a>
-            <a class="btn btn--ghost" href="#uslugi">Услуги и цены</a>
+            <a class="btn btn--ghost" href="#uslugi">Собрать визит</a>
           </div>
-          <p class="hero__note">Работаем ежедневно, по предварительной записи. Услуги для гостей старше 18 лет.</p>
+          <p class="hero__note hero__reveal" style="--d: 5">Работаем ежедневно, по предварительной записи. Услуги для гостей старше 18 лет.</p>
         </div>
         <!-- Placeholder photo: spa bathroom interior, Unsplash, no people. See ATTRIBUTION.md -->
-        <figure class="hero__figure">
-          <img src="images/hero.jpg" width="1800" height="1200" alt="Спокойный интерьер спа: отдельно стоящая ванна, камни и зелень">
+        <figure class="hero__figure hero__reveal" style="--d: 2">
+          <div class="hero__photo">
+            <img src="images/hero.jpg" width="1800" height="1200" alt="Спокойный интерьер спа: отдельно стоящая ванна, камни и зелень">
+          </div>
           <figcaption>Интерьер · визуальная заглушка для прототипа</figcaption>
         </figure>
       </div>
+      <a class="hero__scroll" href="#mastera">
+        <span>Далее</span>
+        <span class="hero__scroll-mark" aria-hidden="true"></span>
+      </a>
     </section>
 
     <section class="section" id="mastera">
@@ -62,11 +78,11 @@
         <div class="section__head">
           <p class="eyebrow">Анкеты</p>
           <h2>Мастера</h2>
-          <p>Шесть специалистов. Имена, опыт и график — заполнители, фотографии на карточках не портреты, а нейтральные натюрморты.</p>
+          <p>Шесть специалистов, все с выездом на дом и в отель. Имена, опыт и график — заполнители, фотографии на карточках не портреты, а нейтральные натюрморты.</p>
         </div>
         <div class="masters">
           <!-- Master photos are still-life placeholders, not portraits. See ATTRIBUTION.md -->
-          <article class="master" data-master="Анна">
+          <article class="master" data-master="Анна" data-outcall="true">
             <figure class="master__photo">
               <img src="images/oils.jpg" width="1400" height="2100" alt="Янтарный флакон масла на деревянном основании">
             </figure>
@@ -75,6 +91,7 @@
                 <h3>Анна</h3>
                 <span class="master__exp">9 лет практики</span>
               </div>
+              <p class="master__badges"><span class="badge">Выезд на дом</span></p>
               <p class="master__spec">Классический и расслабляющий массаж</p>
               <dl>
                 <div>
@@ -97,7 +114,7 @@
             </div>
           </article>
 
-          <article class="master" data-master="Мария">
+          <article class="master" data-master="Мария" data-outcall="true">
             <figure class="master__photo">
               <img src="images/lavender.jpg" width="1400" height="2100" alt="Лаванда, масла и камни на льняной ткани">
             </figure>
@@ -106,6 +123,7 @@
                 <h3>Мария</h3>
                 <span class="master__exp">7 лет практики</span>
               </div>
+              <p class="master__badges"><span class="badge">Выезд на дом</span></p>
               <p class="master__spec">Лимфодренаж и антицеллюлитный массаж</p>
               <dl>
                 <div>
@@ -127,7 +145,7 @@
             </div>
           </article>
 
-          <article class="master" data-master="Елена">
+          <article class="master" data-master="Елена" data-outcall="true">
             <figure class="master__photo">
               <img src="images/soaps.jpg" width="1400" height="2100" alt="Стопка натурального мыла">
             </figure>
@@ -136,6 +154,7 @@
                 <h3>Елена</h3>
                 <span class="master__exp">12 лет практики</span>
               </div>
+              <p class="master__badges"><span class="badge">Выезд на дом</span></p>
               <p class="master__spec">Стоун-терапия и SPA-ритуалы</p>
               <dl>
                 <div>
@@ -157,7 +176,7 @@
             </div>
           </article>
 
-          <article class="master" data-master="Ольга">
+          <article class="master" data-master="Ольга" data-outcall="true">
             <figure class="master__photo">
               <img src="images/roses.jpg" width="1400" height="933" alt="Флакон масла и лепестки роз">
             </figure>
@@ -166,6 +185,7 @@
                 <h3>Ольга</h3>
                 <span class="master__exp">8 лет практики</span>
               </div>
+              <p class="master__badges"><span class="badge">Выезд на дом</span></p>
               <p class="master__spec">Массаж лица, шея и воротниковая зона</p>
               <dl>
                 <div>
@@ -187,7 +207,7 @@
             </div>
           </article>
 
-          <article class="master" data-master="Ирина">
+          <article class="master" data-master="Ирина" data-outcall="true">
             <figure class="master__photo">
               <img src="images/bottles.jpg" width="1400" height="2100" alt="Янтарные флаконы для ухода">
             </figure>
@@ -196,6 +216,7 @@
                 <h3>Ирина</h3>
                 <span class="master__exp">6 лет практики</span>
               </div>
+              <p class="master__badges"><span class="badge">Выезд на дом</span></p>
               <p class="master__spec">Спортивный массаж и работа со спиной</p>
               <dl>
                 <div>
@@ -217,7 +238,7 @@
             </div>
           </article>
 
-          <article class="master" data-master="Дарья">
+          <article class="master" data-master="Дарья" data-outcall="true">
             <figure class="master__photo">
               <img src="images/towels.jpg" width="1400" height="2114" alt="Свёрнутые полотенца, свечи и цветок">
             </figure>
@@ -226,6 +247,7 @@
                 <h3>Дарья</h3>
                 <span class="master__exp">10 лет практики</span>
               </div>
+              <p class="master__badges"><span class="badge">Выезд на дом</span></p>
               <p class="master__spec">Парные программы и расслабляющие ритуалы</p>
               <dl>
                 <div>
@@ -253,129 +275,78 @@
     <section class="section" id="uslugi">
       <div class="container">
         <div class="section__head">
-          <p class="eyebrow">Что делаем</p>
-          <h2>Услуги и цены</h2>
-          <p>Ручной массаж и спокойные SPA-ритуалы. Цены — ориентиры для прототипа: точную стоимость подтвердим при записи.</p>
+          <p class="eyebrow">Конструктор визита</p>
+          <h2>Соберите свой сеанс</h2>
+          <p>Основа — час массажа. К нему можно добавить ещё час, второго гостя и короткие уходы, как в комбо. Цены в конструкторе примерные.</p>
         </div>
 
         <p class="policy"><strong>Возраст.</strong> Принимаем гостей старше 18 лет. На сеансе сначала уточняем самочувствие и противопоказания, затем подбираем силу и технику.</p>
 
-        <div class="services">
-          <article class="service">
-            <h3>Классический массаж</h3>
-            <p>Ровная, спокойная проработка тела: снимаем мышечное напряжение и возвращаем подвижность.</p>
-            <div class="service__meta">
-              <span class="service__time">60 / 90 мин</span>
-              <span class="service__price">4 500–6 200 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Расслабляющий массаж</h3>
-            <p>Мягкий темп, тёплое масло и внимание к дыханию. Подходит после насыщенного дня.</p>
-            <div class="service__meta">
-              <span class="service__time">60 / 90 мин</span>
-              <span class="service__price">4 800–6 500 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Спортивный массаж</h3>
-            <p>Глубже работаем с мышцами до или после нагрузки, чтобы быстрее восстановиться.</p>
-            <div class="service__meta">
-              <span class="service__time">60 мин</span>
-              <span class="service__price">5 200–5 900 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Лимфодренажный массаж</h3>
-            <p>Лёгкие, точные движения, которые помогают уменьшить отёчность и чувство тяжести.</p>
-            <div class="service__meta">
-              <span class="service__time">60 / 90 мин</span>
-              <span class="service__price">5 400–7 200 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Антицеллюлитный массаж</h3>
-            <p>Плотный ручной курс для тонуса кожи. Результат копится от сеанса к сеансу.</p>
-            <div class="service__meta">
-              <span class="service__time">60 мин</span>
-              <span class="service__price">5 600–6 400 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Массаж спины и шеи</h3>
-            <p>Короткая, точечная работа с поясницей, лопатками и шейно-воротниковой зоной.</p>
-            <div class="service__meta">
-              <span class="service__time">30 / 45 мин</span>
-              <span class="service__price">2 900–3 800 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Массаж лица</h3>
-            <p>Бережная работа с лицом, шеей и декольте: снимаем зажимы и освежаем цвет кожи.</p>
-            <div class="service__meta">
-              <span class="service__time">40 / 60 мин</span>
-              <span class="service__price">3 500–4 900 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>Стоун-терапия</h3>
-            <p>Тёплые камни и ручные техники. Глубокое тепло, без спешки.</p>
-            <div class="service__meta">
-              <span class="service__time">90 мин</span>
-              <span class="service__price">7 200–8 400 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>SPA-программа для двоих</h3>
-            <p>Два параллельных сеанса в одной комнате: массаж, тёплые полотенца и спокойный ритуал.</p>
-            <div class="service__meta">
-              <span class="service__time">120 мин</span>
-              <span class="service__price">14 800–18 000 ₽</span>
-            </div>
-          </article>
-          <article class="service">
-            <h3>SPA-ритуал</h3>
-            <p>Скраб, обёртывание и массаж — полный цикл ухода за телом за один визит.</p>
-            <div class="service__meta">
-              <span class="service__time">120 мин</span>
-              <span class="service__price">9 500–11 200 ₽</span>
-            </div>
-          </article>
-        </div>
+        <div class="builder" id="visit-builder">
+          <div class="builder__presets" id="builder-presets" role="group" aria-label="Готовые комбо"></div>
 
-        <div class="masters-intro">
-          <!-- Placeholder photo: hot stones, Pexels, no face. See ATTRIBUTION.md -->
-          <figure>
-            <img src="images/stones.jpg" width="1400" height="2097" alt="Тёплые камни для стоун-терапии">
-          </figure>
-          <div>
-            <p class="eyebrow">Команда</p>
-            <h2>О мастерах</h2>
-            <p>С телом работают мастера с медицинской и профильной подготовкой. На сеансе сначала уточняем запрос, затем собираем технику под самочувствие — без универсального сценария «для всех».</p>
-            <p>В анкете — только профессиональные сведения: опыт, специализация, техники и график. Записаться можно к конкретному мастеру или оставить выбор за администратором.</p>
-            <a href="#mastera">Смотреть анкеты</a>
+          <div class="builder__format">
+            <div class="segmented" id="builder-format" role="radiogroup" aria-label="Формат визита">
+              <label>
+                <input type="radio" name="visit-format" value="salon" checked>
+                <span>В салоне</span>
+              </label>
+              <label>
+                <input type="radio" name="visit-format" value="outcall">
+                <span>С выездом</span>
+              </label>
+            </div>
+            <p class="builder__format-note" id="builder-format-note" hidden></p>
+          </div>
+
+          <div class="builder__layout">
+            <div class="builder__main">
+              <article class="builder__base" id="builder-base"></article>
+              <ul class="addons" id="builder-addons"></ul>
+              <noscript>
+                <p class="builder-note">Чтобы собрать визит и увидеть итоговую сумму, включите JavaScript. Базовая услуга: массаж, 1 час — от 5 500 ₽. Допы: +1 час, массаж для второго гостя, массаж головы, массаж лица, скраб тела, аромамасла, чайная церемония. Выезд на дом — отдельно, в пределах МКАД.</p>
+              </noscript>
+            </div>
+
+            <aside class="builder__summary" id="builder-summary" aria-live="polite">
+              <h3>Ваш визит</h3>
+              <ul class="builder__summary-list" id="summary-list"></ul>
+              <p class="builder__duration" id="summary-duration"></p>
+              <p class="builder__total" id="summary-total"></p>
+              <p class="builder__price-note">Цены примерные, для прототипа. Точную стоимость подтвердим при записи.</p>
+              <p class="builder__upsell" id="builder-upsell" hidden></p>
+              <a class="btn btn--primary btn--block" href="#zapis" id="builder-book">Записаться</a>
+            </aside>
           </div>
         </div>
       </div>
     </section>
+
+    <div class="builder-bar" id="builder-bar" hidden>
+      <div class="builder-bar__info">
+        <strong id="bar-total"></strong>
+        <span id="bar-duration"></span>
+      </div>
+      <a class="btn btn--primary" href="#zapis" id="bar-book">Записаться</a>
+    </div>
 
     <section class="section" id="skidki">
       <div class="container">
         <div class="section__head">
           <p class="eyebrow">Бережно к постоянным гостям</p>
           <h2>Система скидок</h2>
-          <p>Простые правила без мелкого шрифта. Размер скидок ниже — пример для прототипа.</p>
+          <p>Простые правила без мелкого шрифта. Размер скидок ниже — пример для прототипа. Скидки считаем от собранного визита, включая допы.</p>
         </div>
         <div class="discounts">
           <article class="discount">
             <div class="discount__value">15%</div>
             <h3>Первый визит</h3>
-            <p>Скидка на первый сеанс массажа. Не суммируется с парными программами и сертификатами.</p>
+            <p>Скидка на первый визит: базовый час массажа и выбранные допы. Не суммируется с сертификатами.</p>
           </article>
           <article class="discount">
             <div class="discount__value">5–15%</div>
             <h3>Карта гостя</h3>
-            <p>Три уровня лояльности. Скидка действует на все индивидуальные сеансы.</p>
+            <p>Три уровня лояльности. Скидка действует на базовый сеанс и дополнительные услуги.</p>
             <ul class="discount__tiers">
               <li><span>5 посещений</span><span>5%</span></li>
               <li><span>10 посещений</span><span>10%</span></li>
@@ -390,12 +361,12 @@
           <article class="discount">
             <div class="discount__value">от 3 000 ₽</div>
             <h3>Сертификаты</h3>
-            <p>Подарок на сумму или на конкретную услугу. Оформляем в спокойном конверте, без срока «до завтра».</p>
+            <p>Подарок на сумму или на готовое комбо. Оформляем в спокойном конверте, без срока «до завтра».</p>
           </article>
           <article class="discount">
             <div class="discount__value">для двоих</div>
-            <h3>Парные программы</h3>
-            <p>Отдельная цена на SPA-программу для двоих — выгоднее, чем два одиночных ритуала.</p>
+            <h3>Комбо «Для двоих»</h3>
+            <p>Два параллельных сеанса в одном визите — в салоне или с выездом. Собирается в конструкторе одной кнопкой.</p>
           </article>
         </div>
       </div>
@@ -405,7 +376,7 @@
       <div class="container visit">
         <div class="panel">
           <h2>Записаться</h2>
-          <p>Оставьте заявку — мы перезвоним и подтвердим время. В этом прототипе заявка никуда не уходит, только показывает статус на странице.</p>
+          <p>Оставьте заявку — мы перезвоним и подтвердим время. Состав визита подтягивается из конструктора. В этом прототипе заявка никуда не уходит, только показывает статус на странице.</p>
           <form class="form" id="booking-form" novalidate>
             <div class="field">
               <label for="field-name">Имя</label>
@@ -416,20 +387,26 @@
               <input id="field-phone" name="phone" type="tel" autocomplete="tel" required placeholder="+7 (495) 000-00-00">
             </div>
             <div class="field">
-              <label for="field-service">Услуга</label>
-              <select id="field-service" name="service" required>
-                <option value="">Выберите услугу</option>
-                <option>Классический массаж</option>
-                <option>Расслабляющий массаж</option>
-                <option>Спортивный массаж</option>
-                <option>Лимфодренажный массаж</option>
-                <option>Антицеллюлитный массаж</option>
-                <option>Массаж спины и шеи</option>
-                <option>Массаж лица</option>
-                <option>Стоун-терапия</option>
-                <option>SPA-программа для двоих</option>
-                <option>SPA-ритуал</option>
-              </select>
+              <label for="field-service">Состав визита</label>
+              <textarea id="field-service" name="service" rows="5" readonly required></textarea>
+            </div>
+            <fieldset class="field field--format">
+              <legend>Формат</legend>
+              <div class="segmented" role="radiogroup" aria-label="Формат визита в заявке">
+                <label>
+                  <input type="radio" name="format" value="salon" checked data-sync-format>
+                  <span>В салоне</span>
+                </label>
+                <label>
+                  <input type="radio" name="format" value="outcall" data-sync-format>
+                  <span>С выездом</span>
+                </label>
+              </div>
+            </fieldset>
+            <div class="field" id="field-address-wrap" hidden>
+              <label for="field-address">Адрес выезда</label>
+              <input id="field-address" name="address" type="text" autocomplete="street-address" placeholder="Улица, дом, квартира или название отеля">
+              <p class="field__hint">Выезд в пределах МКАД. Стоимость выезда примерная, подтвердим при записи.</p>
             </div>
             <div class="field">
               <label for="field-master">Мастер</label>
@@ -442,6 +419,7 @@
                 <option>Ирина</option>
                 <option>Дарья</option>
               </select>
+              <p class="field__hint" id="field-master-note" hidden></p>
             </div>
             <div class="form__row">
               <div class="field">
@@ -464,7 +442,7 @@
 
         <aside class="panel contacts" id="kontakty">
           <h2>Контакты</h2>
-          <p>Адрес и телефон — заполнители, пока салон не назван.</p>
+          <p>Адрес и телефон — заполнители, пока салон не назван. Мастера принимают в салоне и выезжают на дом и в отель по Москве.</p>
           <ul class="contacts__list">
             <li>
               <span>Адрес</span>
@@ -477,6 +455,10 @@
             <li>
               <span>Часы работы</span>
               Ежедневно 10:00–22:00, по предварительной записи
+            </li>
+            <li>
+              <span>Выезд</span>
+              На дом и в отель, в пределах МКАД
             </li>
             <li>
               <span>Возраст</span>
@@ -521,20 +503,26 @@
         <input id="modal-phone" name="phone" type="tel" autocomplete="tel" required placeholder="+7 (495) 000-00-00">
       </div>
       <div class="field">
-        <label for="modal-service">Услуга</label>
-        <select id="modal-service" name="service" required>
-          <option value="">Выберите услугу</option>
-          <option>Классический массаж</option>
-          <option>Расслабляющий массаж</option>
-          <option>Спортивный массаж</option>
-          <option>Лимфодренажный массаж</option>
-          <option>Антицеллюлитный массаж</option>
-          <option>Массаж спины и шеи</option>
-          <option>Массаж лица</option>
-          <option>Стоун-терапия</option>
-          <option>SPA-программа для двоих</option>
-          <option>SPA-ритуал</option>
-        </select>
+        <label for="modal-service">Состав визита</label>
+        <textarea id="modal-service" name="service" rows="5" readonly required></textarea>
+      </div>
+      <fieldset class="field field--format">
+        <legend>Формат</legend>
+        <div class="segmented" role="radiogroup" aria-label="Формат визита в заявке">
+          <label>
+            <input type="radio" name="format" value="salon" checked data-sync-format>
+            <span>В салоне</span>
+          </label>
+          <label>
+            <input type="radio" name="format" value="outcall" data-sync-format>
+            <span>С выездом</span>
+          </label>
+        </div>
+      </fieldset>
+      <div class="field" id="modal-address-wrap" hidden>
+        <label for="modal-address">Адрес выезда</label>
+        <input id="modal-address" name="address" type="text" autocomplete="street-address" placeholder="Улица, дом, квартира или название отеля">
+        <p class="field__hint">Выезд в пределах МКАД. Стоимость выезда примерная, подтвердим при записи.</p>
       </div>
       <div class="field">
         <label for="modal-master">Мастер</label>
@@ -547,6 +535,7 @@
           <option>Ирина</option>
           <option>Дарья</option>
         </select>
+        <p class="field__hint" id="modal-master-note" hidden></p>
       </div>
       <div class="form__row">
         <div class="field">
