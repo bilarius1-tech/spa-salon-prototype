@@ -23,14 +23,14 @@
 
 ### Портреты мастеров (заглушки)
 
-Кадрированы до формата 4:5 и сохранены в WebP, каждая меньше 200 КБ. Это не сотрудники салона.
+Кадрированы до формата 4:5 (960×1200) и сохранены в WebP, каждая меньше 200 КБ. Ко всем применена одна мягкая тёплая цветокоррекция, чтобы разные кадры читались как одна серия. Это не сотрудники салона.
 
-- `images/master-anna.webp` — [Andrea Piacquadio, Pexels 762020](https://www.pexels.com/photo/762020/)
-- `images/master-maria.webp` — [Vitaly Gariev, Pexels 36763592](https://www.pexels.com/photo/36763592/)
-- `images/master-elena.webp` — [Christina Morillo, Pexels 1181424](https://www.pexels.com/photo/1181424/)
-- `images/master-olga.webp` — [Andrea Piacquadio, Pexels 3763188](https://www.pexels.com/photo/3763188/)
-- `images/master-irina.webp` — [Chrofit the man to call, Pexels 5615665](https://www.pexels.com/photo/5615665/)
-- `images/master-darya.webp` — [Andrea Piacquadio, Pexels 3786525](https://www.pexels.com/photo/3786525/)
+- `images/master-anna.webp` — [Artem Podrez, Pexels 6779609](https://www.pexels.com/photo/6779609/)
+- `images/master-maria.webp` — [shahin khalaji, Pexels 15903732](https://www.pexels.com/photo/15903732/)
+- `images/master-elena.webp` — [Alexander Mass, Pexels 39325101](https://www.pexels.com/photo/39325101/)
+- `images/master-olga.webp` — [Miriam Alonso, Pexels 7622892](https://www.pexels.com/photo/7622892/)
+- `images/master-irina.webp` — [Dmitriy Steinke, Pexels 17720243](https://www.pexels.com/photo/17720243/)
+- `images/master-darya.webp` — [Ilya Komov, Pexels 11446777](https://www.pexels.com/photo/11446777/)
 
 ## Видео для первого экрана (заглушка)
 
