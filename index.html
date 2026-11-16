@@ -26,8 +26,9 @@
         <a href="#skidki">Скидки</a>
         <a href="#zapis">Запись</a>
         <a href="#kontakty">Контакты</a>
-        <a class="btn btn--primary" href="#zapis" data-open-booking>Записаться</a>
+        <a class="btn btn--primary nav__cta" href="#zapis" data-open-booking>Записаться</a>
       </nav>
+      <a class="header__phone" href="tel:+74950000000">+7 (495) 000-00-00</a>
       <a class="btn btn--primary header__cta" href="#zapis" data-open-booking>Записаться</a>
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
@@ -38,34 +39,57 @@
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero__ambience" aria-hidden="true">
-        <span class="hero__blob hero__blob--1"></span>
-        <span class="hero__blob hero__blob--2"></span>
-        <span class="hero__blob hero__blob--3"></span>
+      <div class="hero__media" aria-hidden="true">
+        <img class="hero__poster" src="images/hero-poster.webp" width="1920" height="1080" alt="">
+        <video class="hero__video" id="hero-video" autoplay muted loop playsinline preload="metadata" poster="images/hero-poster.jpg" width="1920" height="1080">
+          <source src="videos/hero.webm" type="video/webm">
+          <source src="videos/hero.mp4" type="video/mp4">
+        </video>
+        <script>
+          (function () {
+            var video = document.getElementById("hero-video");
+            var hero = video && video.closest(".hero");
+            if (!video) return;
+            var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var small = window.matchMedia("(max-width: 720px)").matches;
+            var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            var save = !!(conn && (conn.saveData || (conn.effectiveType && /2g/.test(conn.effectiveType))));
+            if (reduce || small || save) {
+              video.removeAttribute("autoplay");
+              video.setAttribute("preload", "none");
+              video.pause();
+              Array.prototype.forEach.call(video.querySelectorAll("source"), function (src) {
+                src.removeAttribute("src");
+              });
+              video.removeAttribute("src");
+              try { video.load(); } catch (err) {}
+              if (hero) hero.classList.add("is-static");
+            }
+          })();
+        </script>
+        <div class="hero__overlay"></div>
       </div>
-      <div class="container hero__grid">
+      <div class="container hero__layout">
         <div class="hero__copy">
-          <p class="eyebrow hero__reveal" style="--d: 0">Спа-салон в Москве</p>
-          <h1 class="hero__reveal" style="--d: 1">Тишина внутри города</h1>
-          <p class="hero__lead hero__reveal" style="--d: 2">Час массажа — основа визита. Остальное добавляется по желанию: ещё час, второй гость, уход за лицом и телом. В салоне или с выездом по Москве.</p>
-          <ul class="hero__points hero__reveal" style="--d: 3">
-            <li>Час массажа — от 5&nbsp;500&nbsp;₽</li>
-            <li>В салоне или с выездом по Москве</li>
-            <li>Ежедневно, по предварительной записи</li>
+          <p class="eyebrow hero__reveal" style="--d: 0">Спа-салон в Москве · в салоне или с выездом</p>
+          <h1 class="hero__reveal" style="--d: 1">Час, который возвращает силы</h1>
+          <p class="hero__lead hero__reveal" style="--d: 2">Массаж от 5&nbsp;500&nbsp;₽. Соберите визит из базового часа и допов — в салоне или с выездом по Москве.</p>
+          <div class="hero__actions hero__reveal" style="--d: 3">
+            <a class="btn btn--primary" href="#uslugi">Собрать визит</a>
+            <a class="btn btn--ghost hero__btn-secondary" href="#zapis" data-open-booking>Записаться</a>
+          </div>
+          <ul class="hero__chips hero__reveal" style="--d: 4">
+            <li>Выезд на дом</li>
+            <li>6 мастеров</li>
+            <li>Комбо</li>
           </ul>
-          <div class="hero__actions hero__reveal" style="--d: 4">
-            <a class="btn btn--primary" href="#zapis" data-open-booking>Записаться</a>
-            <a class="btn btn--ghost" href="#uslugi">Собрать визит</a>
-          </div>
-          <p class="hero__note hero__reveal" style="--d: 5">Работаем ежедневно, по предварительной записи. Услуги для гостей старше 18 лет.</p>
         </div>
-        <!-- Placeholder photo: spa bathroom interior, Unsplash, no people. See ATTRIBUTION.md -->
-        <figure class="hero__figure hero__reveal" style="--d: 2">
-          <div class="hero__photo">
-            <img src="images/hero.jpg" width="1800" height="1200" alt="Спокойный интерьер спа: отдельно стоящая ванна, камни и зелень">
-          </div>
-          <figcaption>Интерьер · визуальная заглушка для прототипа</figcaption>
-        </figure>
+        <aside class="hero__offer hero__reveal" style="--d: 3" aria-label="Предложение для первого визита">
+          <p class="eyebrow">Предложение</p>
+          <p class="hero__offer-value">Первый визит −20%</p>
+          <p>Скидка на первый сеанс: базовый час массажа и выбранные допы. Не суммируется с сертификатами.</p>
+          <a class="btn btn--primary" href="#zapis" data-open-booking>Записаться</a>
+        </aside>
       </div>
       <a class="hero__scroll" href="#mastera">
         <span>Далее</span>
@@ -357,9 +381,9 @@
         </div>
         <div class="discounts">
           <article class="discount">
-            <div class="discount__value">15%</div>
+            <div class="discount__value">20%</div>
             <h3>Первый визит</h3>
-            <p>Скидка на первый визит: базовый час массажа и выбранные допы. Не суммируется с сертификатами.</p>
+            <p>Скидка −20% на первый визит: базовый час массажа и выбранные допы. Не суммируется с сертификатами.</p>
           </article>
           <article class="discount">
             <div class="discount__value">5–15%</div>
@@ -502,7 +526,7 @@
         <a href="#zapis">Запись</a>
         <a href="#kontakty">Контакты</a>
       </nav>
-      <p class="footer__meta">Прототип одностраничного сайта. Название, адрес, телефон, цены и отзывы — примеры. Источники фотографий — в файле <a href="ATTRIBUTION.md">ATTRIBUTION.md</a>.</p>
+      <p class="footer__meta">Прототип одностраничного сайта. Название, адрес, телефон, цены и отзывы — примеры. Источники фотографий и видео — в файле <a href="ATTRIBUTION.md">ATTRIBUTION.md</a>.</p>
     </div>
   </footer>
 

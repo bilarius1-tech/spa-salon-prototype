@@ -31,3 +31,12 @@
 - `images/master-olga.webp` — [Andrea Piacquadio, Pexels 3763188](https://www.pexels.com/photo/3763188/)
 - `images/master-irina.webp` — [Chrofit the man to call, Pexels 5615665](https://www.pexels.com/photo/5615665/)
 - `images/master-darya.webp` — [Andrea Piacquadio, Pexels 3786525](https://www.pexels.com/photo/3786525/)
+
+## Видео для первого экрана (заглушка)
+
+Кадр укорочен до петли ~11,5 с, без звука, сохранён в репозитории. Это стоковый ролик, пока салон не пришлёт свой материал.
+
+- `videos/hero.mp4`, `videos/hero.webm`, `images/hero-poster.jpg`, `images/hero-poster.webp` — [Kaboompics, Pexels 6629846](https://www.pexels.com/video/pouring-massage-into-the-palm-6629846/) (Pexels License). Руки наливают тёплое масло из свечи.
+
+`images/hero.jpg` — прежний фотокадр интерьера (Unsplash, см. выше) остаётся в репозитории как запасной.
+
